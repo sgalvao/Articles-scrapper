@@ -5,16 +5,13 @@ type Search = {
     page: number;
     apiKey:string;
 } 
-//0qbBn1GJ8zry7usoUmaXSjZYCpDh2tde
+//
 
-export default async function search({query, page, apiKey}: Search) {
+export default async function Search({query, page}: Search) {
 
-        const articles = await api.get(`${query}?page=${page}&pageSize=10&apiKey=${apiKey}`);
-        const retorno = articles.data.data
+        const articles = await api.get(`${query}?page=${page}&pageSize=10&apiKey=0qbBn1GJ8zry7usoUmaXSjZYCpDh2tde`);
+        const response = articles.data.data
 
-        retorno.map((article: any) => {
-            return  article['id'];
-        });
-        
-    
+        return response;
+
 }
