@@ -16,7 +16,6 @@ type Article = {
 
 export const Artigo = ({article}: Article) => {
     return(
-
     <div>
         <li > { article.title } </li>
     </div>

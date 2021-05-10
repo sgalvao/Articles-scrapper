@@ -6,9 +6,10 @@ import MenuBtn from './HeaderMenu/menuIcon';
 export default function Header(){
 
     return(
-       <div className={style.Container}>
+       <div>
         <header className={style.menuBar}>
             <img src={logoVector}/>
+            <title>Teste</title>
         </header>
        </div>
     )
