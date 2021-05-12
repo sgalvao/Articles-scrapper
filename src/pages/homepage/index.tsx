@@ -1,41 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import {} from 'react-dom';
-import {Artigo} from '../../components/Article';
+import React,{useState, useEffect} from 'react';
+import { Artigo } from '../../components/Article';
 import Header from '../../components/Header';
-import SearchComponent from '../../components/SearchComponent';
-import api from '../../services/api/api';
+import {SearchComponent} from '../../components/SearchComponent';
 import style from './style.module.scss'
 
 
 
 export default function Homepage(){
-
-    const [result, setResult] = useState<string[]>([]);
-    const [search, setSearch] = useState<string>('');
-    const retorno = async (page:string) => {
-     
-        const articles = await api.get(`${page}?page=1&pageSize=10&apiKey=0qbBn1GJ8zry7usoUmaXSjZYCpDh2tde`);
-        const retorno = articles.data.data
-        setResult(retorno)
-
-    }
-    const artigos = result.map((article: any) => <Artigo key={article.id} article={article}/>)
     
+  
+    const [result, setResult] = useState<string[]>([]);
+
 
     return(
             
-        <div className={style.Container}>
+        <div>
             <Header/>
-            <div className={style.Content}>
-            <label className={style.title}>Buscar Artigos</label>
+            <SearchComponent setResult={setResult}/>
+            <div className={style.ArticleContainer}>
+            { result && result.map((article:any) => (
+                <p key={article.id}  > {article.title}</p>
+                 ))}
             </div>
-            <form className={style.searchContainer}>
-            <input
-            type='text' placeholder="Buscar Artigos..."  onChange={text => setSearch(text.target.value) }/>
-            <button type='reset' className={style.searchBtn} onClick={() => {retorno(search)}}></button>
-                <button id='sendBtn' type='reset' className={style.sendBtn} >Enviar</button>
-            </form>
-            {artigos}
         </div>
     )
     }
