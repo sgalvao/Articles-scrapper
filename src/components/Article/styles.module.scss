@@ -82,4 +82,14 @@
 
 }
 
+.headerContainer{
+    display: flex;
+    flex-direction: row;
+  justify-content: space-evenly;
+    
 
+  .starIcon{
+      color: #6B169F;
+  }
+
+}

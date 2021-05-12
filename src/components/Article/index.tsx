@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import { Icon } from 'semantic-ui-react';
 import style from './styles.module.scss'
 
 type Article = {
@@ -14,14 +15,28 @@ type Article = {
 
 
 
+
+
+
 export const Artigo = ({article}: Article) => {
-    return(
-      
+
+  const [fav, setFav] = useState<string>('star outline')
+  
+
+
+
+    return(<>
+      {console.log(fav)}
       <section className={style.Container} key={article.id}>
         <div className={style.boxContainer} >
+          <div className={style.headerContainer}>
           <h1 className={style.title}>
              {article.title}
           </h1>
+          <a className={style.starIcon} onClickCapture={() => setFav('star')}>
+            <Icon name='star'  />
+          </a>
+          </div>
           <p>
             {article.description}
           </p>
@@ -33,5 +48,6 @@ export const Artigo = ({article}: Article) => {
 
         </div>
       </section>
+      </>
     )
 }
