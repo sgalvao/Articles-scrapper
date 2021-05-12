@@ -54,6 +54,12 @@
     &:focus ~.searchBtn {
       transition: 1s;
       background: #400372;
+      &:hover{
+        transition: 1s;
+        cursor: pointer;
+        background: #05aa70;
+        opacity: 0.9;
+      }
     }
 
   }
