@@ -13,12 +13,12 @@
   font-size: 36px;
   font-family: bebas neue;
   color: blueviolet;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-top: 20px;
   margin-right: 5px;
   @media screen and (max-width:720px){
     font-size: 20px;
-    visibility: hidden;
+    
   }
 
 }
@@ -31,7 +31,9 @@
 
   input{
     width: 445px;
-    height: 37px;
+    height: 35px;
+    font-family: roboto;
+    font-size: 16px;
     padding-left:10px;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
@@ -39,7 +41,8 @@
     border: 1px solid blueviolet;
     background: transparent;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-
+    transition: all 1s ease-in-out;
+    
     &::placeholder{
       font-family: roboto ;
       font-size: 16px;
@@ -56,26 +59,26 @@
       background: #400372;
     }
 
+    @media screen and (max-width:720px) {
+      width: 230px;
+    }
+
   }
   .searchBtn{
-    width: 80px;
-    height: 40px;
-    border: none;
-    background:#6B169F ;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    margin-bottom: 1px;
-    color: #f0f2f3;
+    height: 35px;
+    font-size: 12px;
     font-family: bebas neue;
-    font-size: 18px;
-    letter-spacing: 1px;
-    transition: all .5s ease-in-out;
+    color: #f0f2f3;
 
+    letter-spacing: 4px;
+    background: #6B169F;
+    border-bottom-left-radius:0px ;
+    border-top-left-radius:0px ;
+
+    transition: all .5s ease-in-out;
     &:hover{
-      transition: 1s;
-      cursor: pointer;
-      background: #05aa70;
-      opacity: 0.9;
+      background: #6B169F;
+      color: #ffffff;
     }
 
   }

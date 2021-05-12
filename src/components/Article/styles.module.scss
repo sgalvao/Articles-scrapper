@@ -1,0 +1,85 @@
+.Container{
+    width: 90%;
+    height: 60%;
+    margin:  0 auto;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+
+
+
+.boxContainer{
+    display: flex;
+    width: 90%;
+    height: 150px;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: #f0f2f3;
+    margin: 0 auto;
+    box-sizing: content-box;
+
+
+    &:hover{
+        
+    }
+
+    .title{
+        width: 90%;
+        font-size: 16px;
+        font-family: roboto, sans-serif;
+        padding-left: 10px;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        line-height: 16px;     /* fallback */
+        max-height: 32px;      /* fallback */
+        -webkit-line-clamp: 2; /* number of lines to show */
+        -webkit-box-orient: vertical;
+
+    }
+    
+    p{
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        line-height: 16px;     
+        max-height: 32px;      
+        -webkit-line-clamp: 3; 
+        -webkit-box-orient: vertical;
+        width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-left: 15px;
+        padding-bottom: 15px;
+        color: rgb(97, 97, 97);
+    }
+
+
+    .footerBoxContainer{
+        display: flex;
+        flex-direction:row ;
+
+        .author{
+            font-size: 14px;
+            font-family: roboto;
+            font-weight: normal;
+            padding-left: 15px;
+            color: #000;
+            margin-bottom: 5px;
+        }
+
+
+
+    }
+
+
+
+
+}
+
+

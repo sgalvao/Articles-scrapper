@@ -1,5 +1,5 @@
 import React from 'react';
-
+import style from './styles.module.scss'
 
 type Article = {
     article: {
@@ -16,27 +16,22 @@ type Article = {
 
 export const Artigo = ({article}: Article) => {
     return(
-    <div>
-         <section>
-        <table>
-          <thead>
-          </thead>
-          <tbody>
-                <tr key={article.id}>
-                  <td>
-                      <a >{article.title}</a>
-                  </td>
-                  <td>{article.title}</td>
-                  <td>{article.authors} </td>
-                  <td> </td>
-                  <td>
-                    <button type="button">
-                    </button>
-                  </td>
-                </tr>
-          </tbody>
-        </table>
+      
+      <section className={style.Container} key={article.id}>
+        <div className={style.boxContainer} >
+          <h1 className={style.title}>
+             {article.title}
+          </h1>
+          <p>
+            {article.description}
+          </p>
+          <div className={style.footerBoxContainer}>
+            <h1 className={style.author}>
+              {article.authors}
+            </h1>
+          </div>
+
+        </div>
       </section>
-    </div>
     )
 }
