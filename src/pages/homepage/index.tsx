@@ -19,7 +19,7 @@ export default function Homepage(){
             <SearchComponent setResult={setResult}/>
             <div className={style.ArticleContainer}>
             { result && result.map((article:any) => (
-                <p key={article.id}  > {article.title}</p>
+                <Artigo key={article.id} article={article} />
                  ))}
             </div>
         </div>
