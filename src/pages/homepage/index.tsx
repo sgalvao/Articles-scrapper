@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import { Artigo } from '../../components/Article';
 import Header from '../../components/Header';
+import {Pagination} from 'semantic-ui-react';
 import {SearchComponent} from '../../components/SearchComponent';
 import PaginationComponent from '../../components/paginationComponent/index'
 import api from '../../services/api/api';
@@ -9,7 +10,7 @@ import style from './style.module.scss';
 
 type DataRequest = {
     query:string;
-    page:number;
+    page:any;
   }
 
 export default function Homepage(){
@@ -24,6 +25,8 @@ export default function Homepage(){
         if (query === "" || query === ' ') {
           return;
         }
+
+        console.log(page)
         const articles = await api.get(
           `${query}?page=${page}&pageSize=10&urls=true&apiKey=0qbBn1GJ8zry7usoUmaXSjZYCpDh2tde`
         );
@@ -54,8 +57,16 @@ export default function Homepage(){
                 <Artigo key={article.id} article={article} />
                  ))}
             </div>
-                {pagination.map((page, index) => (
-                    <PaginationComponent key={index} currentPage={currentPage} retorno={retorno} query={search} page={page} />
+                {pagination.map((page,index) => (
+                      <Pagination
+                      onClick={() => {retorno({query:search,page:currentPage + 1})}}
+                      defaultActivePage={currentPage}
+                      firstItem={null}
+                      lastItem={null}
+                      pointing
+                      secondary
+                      totalPages={page}
+                    />
                 )
                    
                 )}

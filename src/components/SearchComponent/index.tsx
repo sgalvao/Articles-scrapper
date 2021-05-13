@@ -27,7 +27,6 @@ export const SearchComponent: React.FC<any> = ({ page, retorno, setSearch, searc
           className={style.searchBtn}
           onClick={() => {
             retorno({query:search, page});
-            setSearch('');
           }} 
           animated>
           <Button.Content className={style.textSearchBtn} visible>
