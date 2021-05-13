@@ -4,42 +4,30 @@ import api from "../../services/api/api";
 import { Artigo } from "../Article";
 import style from "./style.module.scss";
 
-export const SearchComponent: React.FC<any> = ({ setResult }: any) => {
 
 
 
+
+export const SearchComponent: React.FC<any> = ({ page, retorno, setSearch, search }: any) => {
 
   
-  const [search, setSearch] = useState<string>("");
-
-  const retorno = async (query: string) => {
-    if (query === "") {
-      return;
-    }
-
-    const articles = await api.get(
-      `${query}?page=1&pageSize=10&apiKey=0qbBn1GJ8zry7usoUmaXSjZYCpDh2tde`
-    );
-
-    const retorno = articles.data.data;
-    setResult(retorno);
-  };
 
   return (
     <>
       <div className={style.Content}>
         <label className={style.title}>Buscar Artigos</label>
       </div>
-      <form className={style.searchContainer}>
+      <div className={style.searchContainer}>
         <input
+          value={search}
           placeholder="Buscar Artigos..."
           onChange={(text) => setSearch(text.target.value)}
         />
         <Button 
-          type="reset"
           className={style.searchBtn}
           onClick={() => {
-            retorno(search);
+            retorno({query:search, page});
+            setSearch('');
           }} 
           animated>
           <Button.Content className={style.textSearchBtn} visible>
@@ -49,8 +37,7 @@ export const SearchComponent: React.FC<any> = ({ setResult }: any) => {
             <Icon name='arrow right' />
           </Button.Content>
         </Button>
-
-      </form>
+      </div>
     </>
   );
 };
