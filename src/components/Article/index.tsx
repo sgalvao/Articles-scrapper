@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { Icon } from 'semantic-ui-react';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
-import style from './styles.module.scss'
+import style from './styles.module.scss';
+import ArticleSvg from '../../assets/img/VectorArticleSvg.svg'
 
 type Article = {
     article: {
@@ -57,7 +58,7 @@ export const Artigo = ({article}: Article) => {
           <a className={style.starIcon} onClickCapture={() => addTofavorite(article) }>
             <Icon name={fav}  />
           </a>
-          <button onClick={() => removeFavorite(article)}>remover</button>
+          
           </div>
           <p>
             {article.description}
@@ -66,8 +67,8 @@ export const Artigo = ({article}: Article) => {
             <h1 className={style.author}>
               {article.authors}
             </h1>
-            <a>
-              {article.fulltextUrls[0]}
+            <a href={article.fulltextUrls[0]} target='_blank' className={style.urlAccess}>
+              <Icon name='book' /> Ler artigo
             </a>
           </div>
 
