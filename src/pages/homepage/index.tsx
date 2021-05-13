@@ -2,8 +2,9 @@ import React,{useState, useEffect} from 'react';
 import { Artigo } from '../../components/Article';
 import Header from '../../components/Header';
 import {SearchComponent} from '../../components/SearchComponent';
+import PaginationComponent from '../../components/paginationComponent/index'
 import api from '../../services/api/api';
-import style from './style.module.scss'
+import style from './style.module.scss';
 
 
 type DataRequest = {
@@ -13,10 +14,9 @@ type DataRequest = {
 
 export default function Homepage(){
 
-
     const [search, setSearch] = useState<string>("");
     const [currentPage, setCurrentPage] = useState<number>(1);
-
+    const [disabled,setDisabled] = useState<boolean>(false);
     const [result, setResult] = useState<string[]>([]);
     const [pagination, setPagination] = useState<any[]>([]);
 
@@ -24,7 +24,6 @@ export default function Homepage(){
         if (query === "" || query === ' ') {
           return;
         }
-    
         const articles = await api.get(
           `${query}?page=${page}&pageSize=10&urls=true&apiKey=0qbBn1GJ8zry7usoUmaXSjZYCpDh2tde`
         );
@@ -38,14 +37,13 @@ export default function Homepage(){
         if(page -1 > 0){
           links.push( page -1)
         }
-        if(page +1 < Math.floor(totalQtd)){
-          links.push(page +1)
+        if(page  = Math.floor(totalQtd)){
+          links.push(page + 1)
         }
         setPagination(links)
        console.log(result)
       };
     
-
     return(
             
         <div>
@@ -57,10 +55,11 @@ export default function Homepage(){
                  ))}
             </div>
                 {pagination.map((page, index) => (
-                    <p key={index} onClick={() => {retorno({query:search, page})}}>{page}</p>
+                    <PaginationComponent key={index} currentPage={currentPage} retorno={retorno} query={search} page={page} />
                 )
                    
                 )}
+                
         </div>
         
     )

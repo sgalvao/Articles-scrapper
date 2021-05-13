@@ -71,7 +71,6 @@ export const Artigo = ({article}: Article) => {
               <Icon name='book' /> Ler artigo
             </a>
           </div>
-
         </div>
       </section>
       </>

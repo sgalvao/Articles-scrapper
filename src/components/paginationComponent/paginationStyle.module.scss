@@ -1,0 +1,38 @@
+.paginationContainer{
+    display: flex;
+    
+    align-content: center;
+    justify-content: center;
+    flex-direction: row;
+
+
+    .currentPage{
+        font-family: bebas neue, sans-serif;
+        color: rgb(95, 5, 212);
+        
+
+    }
+
+    .previous{
+        height: 20px;
+        margin-right: 15px;
+        margin-top: 1px;
+        color: #6B169F;
+        transform: rotate(-90deg)
+
+    }
+    button{
+        border: none;
+        background: transparent;
+    }
+
+    .next{
+        height: 20px;
+        margin-left: 15px;
+         color: #6B169F;
+        transform: rotate(90deg)
+        
+    }
+
+
+}
