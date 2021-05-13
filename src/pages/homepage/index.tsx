@@ -6,6 +6,7 @@ import {SearchComponent} from '../../components/SearchComponent';
 import PaginationComponent from '../../components/paginationComponent/index'
 import api from '../../services/api/api';
 import style from './style.module.scss';
+import ModalFavorite from '../../components/FavModal';
 
 
 type DataRequest = {
@@ -58,15 +59,17 @@ export default function Homepage(){
                  ))}
             </div>
                 {pagination.map((page,index) => (
+                      <div className={style.paginationBox}>
                       <Pagination
                       onClick={() => {retorno({query:search,page:currentPage + 1})}}
-                      defaultActivePage={currentPage}
+                      defaultActivePage={1}
                       firstItem={null}
                       lastItem={null}
                       pointing
                       secondary
                       totalPages={page}
                     />
+                    </div>
                 )
                    
                 )}
