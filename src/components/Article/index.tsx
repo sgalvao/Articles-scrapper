@@ -1,78 +1,57 @@
-import React, {useState, useEffect} from 'react';
-import { Icon } from 'semantic-ui-react';
-import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
-import style from './styles.module.scss';
-import ArticleSvg from '../../assets/img/VectorArticleSvg.svg'
+import { useState} from "react";
+import { Icon } from "semantic-ui-react";
+import { SemanticICONS } from "semantic-ui-react/dist/commonjs/generic";
+import style from "./styles.module.scss";
 
 type Article = {
-    article: {
-        id:number;
-        title:string;
-        description:string;
-        authors:string;
-        fulltextUrls:string[];
-    }
+  article: {
+    id: number;
+    title: string;
+    description: string;
+    authors: string;
+    fulltextUrls: string[];
+  };
+  handleClick: any;
+};
 
-}
+export const Artigo = ({ article, handleClick }: Article) => {
+  let local: any = localStorage.getItem("@favorites");
+  local = JSON.parse(local);
 
+  let starInitValue: SemanticICONS;
 
+  if (local && local[article.id]) starInitValue = "star";
+  else starInitValue = "star outline";
 
+  const [star, setStar] = useState<SemanticICONS>(starInitValue);
 
-
-
-export const Artigo = ({article}: Article) => {
-
-  const [fav, setFav] = useState<SemanticICONS>('star outline')
-  const [addFav, setAddFav] = useState<any[]>([])
-
-
-  const removeFavorite = (article:any) => {
-    const favoriteList:any[] = addFav.filter(
-      (addFav) => addFav.id !== article.id
-      )
-      setAddFav(favoriteList)
-      
-  }
-
-
-  const addTofavorite = (article:any) => {
-    const favoriteList:any[] = [...addFav, article]
-      setAddFav(favoriteList)
-    
-    if(fav === 'star'){
-      setFav('star outline')
-    }else{
-      setFav('star')
-    }
-    console.log(favoriteList)
-  }
-
-
-    return(<>
+  return (
+    <>
       <section className={style.Container} key={article.id}>
-        <div className={style.boxContainer} >
+        <div className={style.boxContainer}>
           <div className={style.headerContainer}>
-          <h1 className={style.title}>
-             {article.title}
-          </h1>
-          <a className={style.starIcon} onClickCapture={() => addTofavorite(article) }>
-            <Icon name={fav}  />
-          </a>
-          
+            <h1 className={style.title}>{article.title}</h1>
+            <div
+              className={style.starIcon}
+              onClick={() => handleClick(article, setStar)}
+            >
+              <Icon name={star} />
+            </div>
           </div>
-          <p>
-            {article.description}
-          </p>
+          <p>{article.description}</p>
           <div className={style.footerBoxContainer}>
-            <h1 className={style.author}>
-              {article.authors}
-            </h1>
-            <a href={article.fulltextUrls[0]} target='_blank' className={style.urlAccess}>
-              <Icon name='book' /> Ler artigo
+            <h1 className={style.author}>{article.authors}</h1>
+            <a
+              href={article.fulltextUrls[0]}
+              target="_blank"
+              rel="noreferrer"
+              className={style.urlAccess}
+            >
+              <Icon name="book" /> Ler artigo
             </a>
           </div>
         </div>
       </section>
-      </>
-    )
-}
+    </>
+  );
+};

@@ -1,82 +1,77 @@
-import React,{useState, useEffect} from 'react';
-import { Artigo } from '../../components/Article';
-import Header from '../../components/Header';
-import {Pagination} from 'semantic-ui-react';
-import {SearchComponent} from '../../components/SearchComponent';
-import PaginationComponent from '../../components/paginationComponent/index'
-import api from '../../services/api/api';
-import style from './style.module.scss';
-import ModalFavorite from '../../components/FavModal';
-
+import { useState } from "react";
+import { Artigo } from "../../components/Article";
+import { Header } from "../../components/Header";
+import { SearchComponent } from "../../components/SearchComponent";
+import PaginationComponent from "../../components/paginationComponent/index";
+import api from "../../services/api/api";
+import style from "./style.module.scss";
+import { ModalFavorite } from "../../components/FavModal";
+import { useFavorite } from "../../hook/useFavorite";
 
 type DataRequest = {
-    query:string;
-    page:any;
-  }
+  query: string;
+  page: any;
+};
 
-export default function Homepage(){
+export default function Homepage() {
+  const [search, setSearch] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [result, setResult] = useState<string[]>([]);
 
-    const [search, setSearch] = useState<string>("");
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [disabled,setDisabled] = useState<boolean>(false);
-    const [result, setResult] = useState<string[]>([]);
-    const [pagination, setPagination] = useState<any[]>([]);
+  let localFavorites: any = localStorage.getItem("@favorites");
+  const [{ favoritesArticles }, handleClick] = useFavorite(
+    JSON.parse(localFavorites)
+  );
 
-    const retorno = async ({query, page}:DataRequest) => {
-        if (query === "" || query === ' ') {
-          return;
-        }
-
-        console.log(page)
-        const articles = await api.get(
-          `${query}?page=${page}&pageSize=10&urls=true&apiKey=0qbBn1GJ8zry7usoUmaXSjZYCpDh2tde`
-        );
-    
-        const retorno = articles.data;
-        setResult(retorno.data);
-        const totalQtd = retorno.totalHits/10
-    
-        let links =[]
-        
-        if(page -1 > 0){
-          links.push( page -1)
-        }
-        if(page  = Math.floor(totalQtd)){
-          links.push(page + 1)
-        }
-        setPagination(links)
-       console.log(result)
-      };
-    
-    return(
-            
-        <div>
-            <Header/>
-            <SearchComponent page={currentPage} retorno={retorno} setSearch={setSearch} search={search} />
-            <div className={style.ArticleContainer}>
-            { result && result.map((article:any) => (
-                <Artigo key={article.id} article={article} />
-                 ))}
-            </div>
-                {pagination.map((page,index) => (
-                      <div className={style.paginationBox}>
-                      <Pagination
-                      onClick={() => {retorno({query:search,page:currentPage + 1})}}
-                      defaultActivePage={1}
-                      firstItem={null}
-                      lastItem={null}
-                      pointing
-                      secondary
-                      totalPages={page}
-                    />
-                    </div>
-                )
-                   
-                )}
-                
-        </div>
-        
-    )
+  const retorno = async ({ query, page }: DataRequest) => {
+    if (query === "" || query === " ") {
+      return;
     }
+    
+    const articles = await api.get(
+      `${query}?page=${page}&pageSize=10&urls=true&apiKey=0qbBn1GJ8zry7usoUmaXSjZYCpDh2tde`
+    );
 
+    const retorno = articles.data;
+    setResult(retorno.data);
+    setCurrentPage(page);
+  };
 
+  return (
+    <>
+      <div>
+        <Header />
+        <SearchComponent
+          page={currentPage}
+          retorno={retorno}
+          setSearch={setSearch}
+          search={search}
+        />
+        <div className={style.boxContainer}>
+          {favoritesArticles && (
+            <ModalFavorite
+              key="3423452345"
+              favoritesArticles={favoritesArticles}
+              handleClick={handleClick}
+            />
+          )}
+        </div>
+        <div className={style.ArticleContainer}>
+          {result &&
+            result.map((article: any) => (
+              <Artigo
+                key={article.id}
+                article={article}
+                handleClick={handleClick}
+              />
+            ))}
+        </div>
+        <PaginationComponent
+          retorno={retorno}
+          query={search}
+          currentPage={currentPage}
+        />
+      </div>
+    </>
+  );
+}

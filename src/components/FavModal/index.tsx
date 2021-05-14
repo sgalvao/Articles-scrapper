@@ -1,9 +1,10 @@
-import React,{useState} from 'react';
-import { Button, Icon, Image, Modal } from 'semantic-ui-react';
-import style from './styles.module.scss';
+import { useState } from "react";
+import { Button, Icon, Modal } from "semantic-ui-react";
+import style from "./styles.module.scss";
+import { Artigo } from "../Article";
 
-const ModalFavorite = () => {
-  const [open, setOpen] = useState(false)
+const ModalFavorite = ({ favoritesArticles, handleClick }: any) => {
+  const [open, setOpen] = useState(false);
 
   return (
     <Modal
@@ -14,24 +15,26 @@ const ModalFavorite = () => {
     >
       <Modal.Header>Artigos Favoritados</Modal.Header>
       <Modal.Content image scrolling>
-
         <Modal.Description>
-          <div>
-            <h1>Titulo</h1>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et rerum perspiciatis voluptas quidem quis, vero praesentium minus rem repellat illo aperiam quod eos consectetur fugiat suscipit sint nesciunt. Cupiditate, incidunt?</p>
-            <h2>Author</h2>
+          <div className={style.boxModal}>
+            {favoritesArticles !== null &&
+              Object.values(favoritesArticles).map((article: any) => (
+                <Artigo
+                  key={article.id}
+                  article={article}
+                  handleClick={handleClick}
+                />
+              ))}
           </div>
-
-    
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
         <Button onClick={() => setOpen(false)} primary>
-          Fechar <Icon name='close' />
+          Fechar <Icon name="close" />
         </Button>
       </Modal.Actions>
     </Modal>
-  )
-}
+  );
+};
 
-export default ModalFavorite
+export { ModalFavorite };
