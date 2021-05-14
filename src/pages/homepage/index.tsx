@@ -7,6 +7,7 @@ import api from "../../services/api/api";
 import style from "./style.module.scss";
 import { ModalFavorite } from "../../components/FavModal";
 import { useFavorite } from "../../hook/useFavorite";
+import Loader  from '../../components/Loader'
 
 type DataRequest = {
   query: string;
@@ -17,6 +18,7 @@ export default function Homepage() {
   const [search, setSearch] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [result, setResult] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   let localFavorites: any = localStorage.getItem("@favorites");
   const [{ favoritesArticles }, handleClick] = useFavorite(
@@ -27,7 +29,9 @@ export default function Homepage() {
     if (query === "" || query === " ") {
       return;
     }
-    
+
+    setLoading(true);
+
     const articles = await api.get(
       `${query}?page=${page}&pageSize=10&urls=true&apiKey=0qbBn1GJ8zry7usoUmaXSjZYCpDh2tde`
     );
@@ -35,6 +39,8 @@ export default function Homepage() {
     const retorno = articles.data;
     setResult(retorno.data);
     setCurrentPage(page);
+    
+    setLoading(false);
   };
 
   return (
@@ -57,14 +63,7 @@ export default function Homepage() {
           )}
         </div>
         <div className={style.ArticleContainer}>
-          {result &&
-            result.map((article: any) => (
-              <Artigo
-                key={article.id}
-                article={article}
-                handleClick={handleClick}
-              />
-            ))}
+          <Articles loading={loading} articles={result} handleClick={handleClick} />
         </div>
         <PaginationComponent
           retorno={retorno}
@@ -74,4 +73,42 @@ export default function Homepage() {
       </div>
     </>
   );
+}
+
+interface IArticles {
+  loading: boolean;
+
+  articles: any;
+
+  handleClick: any;
+}
+
+const Articles = ({loading, articles, handleClick}: IArticles) => {
+
+  if(loading === true){
+
+    return (
+      <div className={style.loader}>
+        <Loader />
+      </div>
+        
+    )
+
+  }else
+  {
+    return (
+      <>{
+      articles && articles.map(
+        (article: any) => (
+            <Artigo
+            key={article.id}
+            article={article}
+            handleClick={handleClick}
+          />
+        ))
+      }</>
+    )
+  }
+
+
 }
