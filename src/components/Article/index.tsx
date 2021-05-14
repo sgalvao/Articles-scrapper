@@ -35,7 +35,7 @@ export const Artigo = ({ article, handleClick }: Article) => {
               className={style.starIcon}
               onClick={() => handleClick(article, setStar)}
             >
-              <Icon name={star} />
+              <Icon name={star} size='large' />
             </div>
           </div>
           <p>{article.description}</p>

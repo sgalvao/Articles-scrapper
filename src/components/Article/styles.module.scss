@@ -119,5 +119,10 @@
     padding-right:60px;
     color: rgb(44, 44, 44);
     font-family: bebas neue;
+    font-size: 16px;
 
+    @media screen and(max-width:720px) {
+        font-size: 12px;
+        
+    }
 }
