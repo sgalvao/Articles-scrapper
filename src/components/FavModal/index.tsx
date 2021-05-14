@@ -7,6 +7,7 @@ const ModalFavorite = ({ favoritesArticles, handleClick }: any) => {
   const [open, setOpen] = useState(false);
 
   return (
+    <div className={style.Modal}>
     <Modal
       open={open}
       onClose={() => setOpen(false)}
@@ -34,6 +35,7 @@ const ModalFavorite = ({ favoritesArticles, handleClick }: any) => {
         </Button>
       </Modal.Actions>
     </Modal>
+    </div>
   );
 };
 

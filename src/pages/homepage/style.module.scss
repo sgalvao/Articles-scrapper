@@ -41,6 +41,10 @@
     border: #6B169F;
     margin-bottom: 7px;
     margin-top: -0px;
+
+    @media screen and (max-width:720px) {
+        visibility: hidden;
+    }
 }
 
 .loader{
