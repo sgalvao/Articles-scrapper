@@ -111,6 +111,10 @@
 
   .starIcon{
       color: #6B169F;
+
+      &:hover{
+          cursor: pointer;
+      }
   }
 
 }
