@@ -12,7 +12,7 @@ const ModalFavorite = ({ favoritesArticles, handleClick }: any) => {
       open={open}
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
-      trigger={<Button>Favoritos</Button>}
+      trigger={<button className={style.favBtn}>Favoritos</button>}
     >
       <Modal.Header>Artigos Favoritados</Modal.Header>
       <Modal.Content image scrolling>
@@ -30,9 +30,9 @@ const ModalFavorite = ({ favoritesArticles, handleClick }: any) => {
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button onClick={() => setOpen(false)} primary>
+        <button className={style.closeBtn} onClick={() => setOpen(false)} >
           Fechar <Icon name="close" />
-        </Button>
+        </button>
       </Modal.Actions>
     </Modal>
     </div>
